@@ -6,6 +6,9 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+// Disabled enables toggling logging on and off.
+var Disabled = false
+
 func init() {
 	log.SetFormatter(&log.JSONFormatter{})
 	log.SetOutput(os.Stdout)
@@ -31,20 +34,28 @@ func (t Type) String() string {
 
 // Info logs information logs to configured logger
 func Info(msg string, t Type, params map[string]interface{}) {
-	log.WithFields(params).WithFields(log.Fields{"type": t.String()}).Info(msg)
+	if !Disabled {
+		log.WithFields(params).WithFields(log.Fields{"type": t.String()}).Info(msg)
+	}
 }
 
 // Warn logs warning logs to configured logger
 func Warn(msg string, t Type, params map[string]interface{}) {
-	log.WithFields(params).WithFields(log.Fields{"type": t.String()}).Warn()
+	if !Disabled {
+		log.WithFields(params).WithFields(log.Fields{"type": t.String()}).Warn()
+	}
 }
 
 // Error logs error logs to configured logger
 func Error(msg string, t Type, params map[string]interface{}) {
-	log.WithFields(params).WithFields(log.Fields{"type": t.String()}).Fatal()
+	if !Disabled {
+		log.WithFields(params).WithFields(log.Fields{"type": t.String()}).Fatal()
+	}
 }
 
 // Crit logs critical logs to configured logger
 func Crit(msg string, t Type, params map[string]interface{}) {
-	log.WithFields(params).WithFields(log.Fields{"type": t.String()}).Panic()
+	if !Disabled {
+		log.WithFields(params).WithFields(log.Fields{"type": t.String()}).Panic()
+	}
 }
