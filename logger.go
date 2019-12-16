@@ -31,20 +31,20 @@ func (t Type) String() string {
 
 // Info logs information logs to configured logger
 func Info(msg string, t Type, params map[string]interface{}) {
-	log.WithFields(params).WithFields(log.Fields{"type": t}).Info(msg)
+	log.WithFields(params).WithFields(log.Fields{"type": t.String()}).Info(msg)
 }
 
 // Warn logs warning logs to configured logger
 func Warn(msg string, t Type, params map[string]interface{}) {
-	log.WithFields(params).WithFields(log.Fields{"type": t}).Warn()
+	log.WithFields(params).WithFields(log.Fields{"type": t.String()}).Warn()
 }
 
 // Error logs error logs to configured logger
 func Error(msg string, t Type, params map[string]interface{}) {
-	log.WithFields(params).WithFields(log.Fields{"type": t}).Fatal()
+	log.WithFields(params).WithFields(log.Fields{"type": t.String()}).Fatal()
 }
 
 // Crit logs critical logs to configured logger
 func Crit(msg string, t Type, params map[string]interface{}) {
-	log.WithFields(params).WithFields(log.Fields{"type": t}).Panic()
+	log.WithFields(params).WithFields(log.Fields{"type": t.String()}).Panic()
 }
